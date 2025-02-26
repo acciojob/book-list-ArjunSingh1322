@@ -1,114 +1,176 @@
 <!DOCTYPE html>
-
-<html>
-
-<head>
-	<link rel="stylesheet" href="styles.css">
-</head>
-
-<body>
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Book List</title>
+    <title>Book List</title>
     <style>
+        /* General Styles */
         body {
             font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
             text-align: center;
-            margin: 50px;
         }
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
+
+        h1 {
+            color: #333;
         }
+
+        /* Form Styling */
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            margin: 0 auto 20px;
+        }
+
         input {
-            width: 300px;
-            padding: 8px;
-            font-size: 16px;
-            border: 1px solid #ccc;
+            width: 90%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
             border-radius: 5px;
-        }
-        button {
-            padding: 10px 20px;
             font-size: 16px;
-            background-color: blue;
+        }
+
+        button {
+            width: 95%;
+            padding: 12px;
+            background-color: #28a745;
             color: white;
             border: none;
+            font-size: 16px;
+            border-radius: 5px;
             cursor: pointer;
+            transition: 0.3s;
         }
+
         button:hover {
-            background-color: darkblue;
+            background-color: #218838;
         }
-		table {
-    border-collapse: collapse; /* Apply collapse to the table */
-}
 
-    th {
-    height: 30px;
-    width: 200px;
-    border-bottom: 2px solid black; /* This creates an underline */
-    text-align: left;
-    padding: 5px;
-     }
+        /* Table Styling */
+        .table-container {
+            max-width: 800px;
+            margin: auto;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+        tr:hover {
+            background: #f1f1f1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            input, button {
+                width: 100%;
+            }
+        }
     </style>
-     </head>
-     <body>
+</head>
+<body>
 
-    <h1>MyBookList</h1>
+    <h1>📚 Book List</h1>
 
-    <div class="form-group">
-        <input type="text" id="title" placeholder="Book Title">
-        <input type="text" id="author" placeholder="Author">
-        <input type="text" id="isbn" placeholder="ISBN">
+    <div class="form-container">
+        <input type="text" id="title" placeholder="Enter Title">
+        <input type="text" id="author" placeholder="Enter Author">
+        <input type="text" id="isbn" placeholder="Enter ISBN">
         <button id="submit">Add Book</button>
     </div>
 
-	<table>
-		<tbody>
-			<tr>
-				<th>Title</th>
-				<th>Author</th>
-				<th>ISBN#</th>
-				
-			</tr>
-			
-		</tbody>
-	</table>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>ISBN</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Book entries will be added here -->
+            </tbody>
+        </table>
+    </div>
 
     <script>
+        let title = document.querySelector("#title");
+        let author = document.querySelector("#author");
+        let isbn = document.querySelector("#isbn");
+        let btn = document.querySelector("#submit");
+        let table = document.querySelector("table tbody");
 
-		let title = document.queryselector("#title")
-		let author = document.querySelector ("#author")
-        let isbn = document.querySelector ("#isbn")
-		let brn = document.querySelector I 
+        btn.addEventListener("click", additem);
+
+       function additem() {
+    if (title.value === "" || author.value === "" || isbn.value === "") {
+        alert("Please fill all fields!");
+        return;
+    }
+
+    let tr = document.createElement("tr");
+
+    let td1 = document.createElement("td");
+    td1.textContent = title.value;
+
+    let td2 = document.createElement("td");
+    td2.textContent = author.value;
+
+    let td3 = document.createElement("td");
+    td3.textContent = isbn.value;
+
+    // Create Delete Button
+    let td4 = document.createElement("td");
+    let cross = document.createElement("button");
+    cross.innerHTML = "&times;"; 
+    cross.style.background = "red";
+    cross.style.color = "white";
+    cross.style.border = "none";
+    cross.style.padding = "5px 10px";
+    cross.style.cursor = "pointer";
+    cross.style.fontSize = "16px";
+    cross.style.borderRadius = "5px";
+
+    cross.addEventListener("click", function () {
+        tr.remove(); 
+    });
+
+    td4.appendChild(cross);
+    tr.append(td1, td2, td3, td4);
+    table.appendChild(tr);
+
+    // Clear input fields after adding
+    title.value = "";
+    author.value = "";
+    isbn.value = "";
+}
+
     </script>
 
 </body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
-
-</body>
-
 </html>
